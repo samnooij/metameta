@@ -7,7 +7,7 @@ rule kaiju_db_custom_1:
 	shell: 
 		"""
 		if [ -d "{params.seq_folder}" ]; then
-			{config[tool_alt_path][kaiju]}gbk2faa.pl <(cat {params.seq_folder}/*.gbff) {output.faa} > {log} 2>&1
+			/usr/bin/env perl {config[tool_alt_path][kaiju]}$(which kaiju | sed 's|bin/kaiju|bin/|g')gbk2faa.pl <(cat {params.seq_folder}/*.gbff) {output.faa} > {log} 2>&1
 		else
 			echo "Custom database ({wildcards.database}) -> '{params.seq_folder}': No such file or directory" > {log}
 		fi
